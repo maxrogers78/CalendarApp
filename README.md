@@ -2,9 +2,23 @@
 
 In this web site you can add, edit, reaed and delete events from a calendar!
 
+### Technologies used (so far)
+
+- HTML5
+- CSS3
+- Javascript
+- ReactJs
+
+#### External Modules
+
+- Bootswatch (Bootstrap)
+- MomentJs
+- React-Big-Calendar
+- React-Modal
+
 ## Build node_modules
 
-In te project directory, run `npm install` or `npm i` to install all the required node modules
+In the project directory, run `npm install` or `npm i` to install all the required node modules
 
 ## Run the app
 
