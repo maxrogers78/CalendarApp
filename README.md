@@ -1,6 +1,6 @@
 # Welcome to CalendarApp
 
-In this web site you can add, edit, reaed and delete events from a calendar!
+In this web site you can add, edit, read and delete events from a calendar!
 
 ### Technologies used (so far)
 
