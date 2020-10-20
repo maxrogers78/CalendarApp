@@ -15,6 +15,7 @@ In this web site you can add, edit, read and delete events from a calendar!
 - MomentJs
 - React-Big-Calendar
 - React-Modal
+- React-Datetime-Picker
 
 ## Build node_modules
 
