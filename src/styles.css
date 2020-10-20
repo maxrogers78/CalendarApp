@@ -53,3 +53,11 @@ body {
   outline: none;
   padding: 10px;
 }
+
+.react-datetime-picker input:focus {
+  outline: none;
+}
+
+.react-datetime-picker__wrapper {
+  border: 0px solid gray !important;
+}
