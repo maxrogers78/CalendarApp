@@ -11,11 +11,15 @@ import "moment/locale/es";
 // Messages
 import { messages } from "../../helpers/calendar-messages-es";
 // Ducks
-import { uiOpenModalAction } from "../../redux/calendarDuck";
+import {
+  eventSetActiveAction,
+  uiOpenModalAction,
+} from "../../redux/calendarDuck";
 // Components
 import NavBar from "../ui/NavBar";
 import CalendarEvent from "./CalendarEvent";
 import CalendarModal from "./CalendarModal";
+import AddNewFab from "../ui/AddNewFab";
 
 moment.locale("es");
 
@@ -46,7 +50,8 @@ const CalendarScreen = () => {
   };
 
   const onSelectEvent = (e) => {
-    console.log(e);
+    dispatch(eventSetActiveAction(e));
+    dispatch(uiOpenModalAction());
   };
 
   const onViewChange = (e) => {
@@ -85,6 +90,8 @@ const CalendarScreen = () => {
         view={lastView}
         components={{ event: CalendarEvent }}
       />
+
+      <AddNewFab />
 
       <CalendarModal />
     </div>
