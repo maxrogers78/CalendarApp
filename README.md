@@ -11,6 +11,8 @@ In this web site you can add, edit, read and delete events from a calendar!
 
 #### External Modules
 
+- Redux / React-Redux
+- Redux-thunk
 - Bootswatch (Bootstrap)
 - MomentJs
 - React-Big-Calendar
