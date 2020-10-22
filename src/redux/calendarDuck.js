@@ -16,9 +16,26 @@ export default function uiReducer(state = initialState, action) {
         modalOpen: true,
       };
 
+    case uiCloseModal:
+      return {
+        ...state,
+        modalOpen: false,
+      };
+
     default:
       return state;
   }
 }
 
 // actions
+export const uiOpenModalAction = () => (dispatch, getState) => {
+  dispatch({
+    type: uiOpenModal,
+  });
+};
+
+export const uiCloseModalAction = () => (dispatch, getState) => {
+  dispatch({
+    type: uiCloseModal,
+  });
+};
