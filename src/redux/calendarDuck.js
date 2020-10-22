@@ -30,7 +30,7 @@ const eventAddNew = "[event] Add new";
 
 //! reducers
 // open & close the modal
-function uiReducer(state = uiInitialState, action) {
+export const uiReducer = (state = uiInitialState, action) => {
   switch (action.type) {
     case uiOpenModal:
       return {
@@ -47,10 +47,10 @@ function uiReducer(state = uiInitialState, action) {
     default:
       return state;
   }
-}
+};
 
 // add & set active an event
-function calendarReducer(state = calendarInitialState, action) {
+export const calendarReducer = (state = calendarInitialState, action) => {
   switch (action.type) {
     case eventSetActive:
       return { ...state, activeEvent: action.payload };
@@ -58,9 +58,9 @@ function calendarReducer(state = calendarInitialState, action) {
     default:
       return state;
   }
-}
+};
 
-export default { uiReducer, calendarReducer };
+// export default { uiReducer, calendarReducer };
 
 //! actions
 export const uiOpenModalAction = () => (dispatch, getState) => {
