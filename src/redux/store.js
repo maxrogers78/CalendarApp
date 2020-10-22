@@ -2,12 +2,13 @@
 import { createStore, combineReducers, compose, applyMiddleware } from "redux";
 import thunk from "redux-thunk";
 // Ducks
-import uiReducer from "./calendarDuck";
+import { uiReducer } from "./calendarDuck";
+import { calendarReducer } from "./calendarDuck";
 
 const rootReducer = combineReducers({
   ui: uiReducer,
+  calendar: calendarReducer,
   // TODO: AuthReducer
-  // TODO: CalendarReducer
 });
 
 // redux-devtools
