@@ -52,6 +52,9 @@ export const uiReducer = (state = uiInitialState, action) => {
 // add & set active an event
 export const calendarReducer = (state = calendarInitialState, action) => {
   switch (action.type) {
+    case eventAddNew:
+      return { ...state, events: [...state.events, action.payload] };
+
     case eventSetActive:
       return { ...state, activeEvent: action.payload };
 
@@ -63,6 +66,7 @@ export const calendarReducer = (state = calendarInitialState, action) => {
 // export default { uiReducer, calendarReducer };
 
 //! actions
+// Modal
 export const uiOpenModalAction = () => (dispatch, getState) => {
   dispatch({
     type: uiOpenModal,
@@ -75,6 +79,7 @@ export const uiCloseModalAction = () => (dispatch, getState) => {
   });
 };
 
+// Event
 export const eventAddNewAction = (event) => (dispatch, getState) => {
   dispatch({
     type: eventAddNew,
