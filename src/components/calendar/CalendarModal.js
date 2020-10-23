@@ -1,5 +1,5 @@
 // React
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 // Redux
 import { useDispatch, useSelector } from "react-redux";
 // MomentJs
@@ -13,6 +13,7 @@ import Swal from "sweetalert2";
 // Ducks
 import {
   eventAddNewAction,
+  eventClearActiveEventAction,
   uiCloseModalAction,
 } from "../../redux/calendarDuck";
 
@@ -32,8 +33,16 @@ Modal.setAppElement("#root");
 const now = moment().minutes(0).seconds(0).add(1, "hours");
 const nowPlus1 = now.clone().add(1, "hours");
 
+const initEvent = {
+  title: "",
+  notes: "",
+  start: now.toDate(),
+  end: nowPlus1.toDate(),
+};
+
 const CalendarModal = () => {
   const { modalOpen } = useSelector((store) => store.ui);
+  const { activeEvent } = useSelector((store) => store.calendar);
   const dispatch = useDispatch();
 
   const [dateStart, setDateStart] = useState(now.toDate());
@@ -41,14 +50,15 @@ const CalendarModal = () => {
 
   const [titleValid, setTitleValid] = useState(true);
 
-  const [formValues, setFormValues] = useState({
-    title: "Evento",
-    notes: "",
-    start: now.toDate(),
-    end: nowPlus1.toDate(),
-  });
+  const [formValues, setFormValues] = useState(initEvent);
 
   const { title, notes, start, end } = formValues;
+
+  useEffect(() => {
+    if (activeEvent) {
+      setFormValues(activeEvent);
+    }
+  }, [activeEvent, setFormValues]);
 
   const handleInputChange = ({ target }) => {
     setFormValues({
@@ -93,6 +103,8 @@ const CalendarModal = () => {
 
   const closeModal = () => {
     dispatch(uiCloseModalAction());
+    dispatch(eventClearActiveEventAction());
+    setFormValues(initEvent);
   };
 
   const handleStartDateChange = (e) => {

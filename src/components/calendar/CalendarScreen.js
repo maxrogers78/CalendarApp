@@ -1,7 +1,7 @@
 // React
 import React, { useState } from "react";
 // Redux
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 // BigCalendar
 import { Calendar, momentLocalizer } from "react-big-calendar";
 import "react-big-calendar/lib/css/react-big-calendar.css";
@@ -25,21 +25,11 @@ moment.locale("es");
 
 const localizer = momentLocalizer(moment);
 
-const events = [
-  {
-    title: "Cumple del jefe",
-    start: moment().toDate(),
-    end: moment().add(2, "hours").toDate(),
-    bgcolor: "#fafafa",
-    user: {
-      _id: "123",
-      name: "Maximiliano",
-    },
-  },
-];
-
 const CalendarScreen = () => {
   const dispatch = useDispatch();
+  // TODO: leer del store, los eventos
+
+  const { events } = useSelector((store) => store.calendar);
 
   const [lastView, setLastView] = useState(
     localStorage.getItem("lastView") || "month"
@@ -51,7 +41,6 @@ const CalendarScreen = () => {
 
   const onSelectEvent = (e) => {
     dispatch(eventSetActiveAction(e));
-    dispatch(uiOpenModalAction());
   };
 
   const onViewChange = (e) => {
