@@ -14,6 +14,7 @@ import Swal from "sweetalert2";
 import {
   eventAddNewAction,
   eventClearActiveEventAction,
+  eventUpdateAction,
   uiCloseModalAction,
 } from "../../redux/calendarDuck";
 
@@ -86,16 +87,21 @@ const CalendarModal = () => {
     }
 
     // TODO: realizar grabación a la base de datos
-    dispatch(
-      eventAddNewAction({
-        ...formValues,
-        id: new Date().getTime(),
-        user: {
-          _uid: "123",
-          name: "Max",
-        },
-      })
-    );
+
+    if (activeEvent) {
+      dispatch(eventUpdateAction(formValues));
+    } else {
+      dispatch(
+        eventAddNewAction({
+          ...formValues,
+          id: new Date().getTime(),
+          user: {
+            _uid: "123",
+            name: "Max",
+          },
+        })
+      );
+    }
 
     setTitleValid(true);
     closeModal();
