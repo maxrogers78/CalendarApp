@@ -31,6 +31,7 @@ const eventSetActive = "[event] Set Active";
 const eventAddNew = "[event] Add new";
 const eventClearActiveEvent = "[event] Clear active event";
 const eventUpdate = "[event] Event updated";
+const eventDeleted = "[event] Event deleted";
 
 //! reducers
 // open & close the modal
@@ -71,6 +72,13 @@ export const calendarReducer = (state = calendarInitialState, action) => {
         events: state.events.map((e) =>
           e.id === action.payload.id ? action.payload : e
         ),
+      };
+
+    case eventDeleted:
+      return {
+        ...state,
+        events: state.events.filter((e) => e.id !== state.activeEvent.id),
+        activeEvent: null,
       };
 
     default:
@@ -119,5 +127,11 @@ export const eventUpdateAction = (event) => (dispatch, getState) => {
   dispatch({
     type: eventUpdate,
     payload: event,
+  });
+};
+
+export const eventDeleteAction = () => (dispatch, getState) => {
+  dispatch({
+    type: eventDeleted,
   });
 };
