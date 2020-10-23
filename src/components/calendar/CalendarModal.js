@@ -11,7 +11,10 @@ import DateTimePicker from "react-datetime-picker";
 // SweetAlert2
 import Swal from "sweetalert2";
 // Ducks
-import { uiCloseModalAction } from "../../redux/calendarDuck";
+import {
+  eventAddNewAction,
+  uiCloseModalAction,
+} from "../../redux/calendarDuck";
 
 const customStyles = {
   content: {
@@ -73,13 +76,22 @@ const CalendarModal = () => {
     }
 
     // TODO: realizar grabación a la base de datos
+    dispatch(
+      eventAddNewAction({
+        ...formValues,
+        id: new Date().getTime(),
+        user: {
+          _uid: "123",
+          name: "Max",
+        },
+      })
+    );
 
     setTitleValid(true);
     closeModal();
   };
 
   const closeModal = () => {
-    // TODO: cerrar el modal
     dispatch(uiCloseModalAction());
   };
 
