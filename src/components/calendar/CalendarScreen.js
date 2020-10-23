@@ -12,6 +12,7 @@ import "moment/locale/es";
 import { messages } from "../../helpers/calendar-messages-es";
 // Ducks
 import {
+  eventClearActiveEventAction,
   eventSetActiveAction,
   uiOpenModalAction,
 } from "../../redux/calendarDuck";
@@ -20,6 +21,7 @@ import NavBar from "../ui/NavBar";
 import CalendarEvent from "./CalendarEvent";
 import CalendarModal from "./CalendarModal";
 import AddNewFab from "../ui/AddNewFab";
+import DeleteEventFab from "../ui/DeleteEventFab";
 
 moment.locale("es");
 
@@ -29,7 +31,7 @@ const CalendarScreen = () => {
   const dispatch = useDispatch();
   // TODO: leer del store, los eventos
 
-  const { events } = useSelector((store) => store.calendar);
+  const { events, activeEvent } = useSelector((store) => store.calendar);
 
   const [lastView, setLastView] = useState(
     localStorage.getItem("lastView") || "month"
@@ -46,6 +48,10 @@ const CalendarScreen = () => {
   const onViewChange = (e) => {
     setLastView(e);
     localStorage.setItem("lastView", e);
+  };
+
+  const onSelectSlot = () => {
+    dispatch(eventClearActiveEventAction());
   };
 
   const eventStyleGetter = (event, start, end, isSelected) => {
@@ -76,11 +82,15 @@ const CalendarScreen = () => {
         onDoubleClickEvent={onDoubleClick}
         onSelectEvent={onSelectEvent}
         onView={onViewChange}
+        onSelectSlot={onSelectSlot}
+        selectable={true}
         view={lastView}
         components={{ event: CalendarEvent }}
       />
 
       <AddNewFab />
+
+      {activeEvent && <DeleteEventFab />}
 
       <CalendarModal />
     </div>
