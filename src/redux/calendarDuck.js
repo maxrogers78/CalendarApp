@@ -9,6 +9,7 @@ const uiInitialState = {
 const calendarInitialState = {
   events: [
     {
+      id: new Date().getTime(),
       title: "Cumple del jefe",
       notes: "Comprar el pastel",
       start: moment().toDate(),
@@ -29,6 +30,7 @@ const uiCloseModal = "[ui] Close modal";
 const eventSetActive = "[event] Set Active";
 const eventAddNew = "[event] Add new";
 const eventClearActiveEvent = "[event] Clear active event";
+const eventUpdate = "[event] Event updated";
 
 //! reducers
 // open & close the modal
@@ -62,6 +64,14 @@ export const calendarReducer = (state = calendarInitialState, action) => {
 
     case eventClearActiveEvent:
       return { ...state, activeEvent: null };
+
+    case eventUpdate:
+      return {
+        ...state,
+        events: state.events.map((e) =>
+          e.id === action.payload.id ? action.payload : e
+        ),
+      };
 
     default:
       return state;
@@ -102,5 +112,12 @@ export const eventSetActiveAction = (event) => (dispatch, getState) => {
 export const eventClearActiveEventAction = () => (dispatch, getState) => {
   dispatch({
     type: eventClearActiveEvent,
+  });
+};
+
+export const eventUpdateAction = (event) => (dispatch, getState) => {
+  dispatch({
+    type: eventUpdate,
+    payload: event,
   });
 };
